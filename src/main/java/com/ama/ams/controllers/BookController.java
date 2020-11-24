@@ -23,26 +23,57 @@ public class BookController {
 	this.BookRepository = BookRepository;
 	}
 	
+	@GetMapping("list")
+	// @ResponseBody
+	public String listProviders(Model model) {
+		List<Book> lp = (List<Book>) BookRepository.findAll();
+		if (lp.size() == 0)
+			lp = null;
+		model.addAttribute("book", lp);
+		return "book/listBook";
+		// System.out.println(lp);
+		// return "Nombre de fournisseur = " + lp.size();
+	}
+
+	
+	
+	
 	@GetMapping("add")
+	//@ResponseBody
+
 	public String showAddBookForm(Model model) {
 	Book book = new Book();// object dont la valeur des attributs par defaut
 	model.addAttribute("book", book);
-	return "book/listBook";
+	return "book/addBook";
 	}
 	
-	/*@PostMapping("add")
-	public String addProvider(@Valid Book book, BindingResult result, Model
+	@PostMapping("add")
+	//@ResponseBody
+
+	public String addBook(@Valid Book book, BindingResult result, Model
 	model) {
 	if (result.hasErrors()) {
-	return "provider/addProvider";
+	return "book/addBook";
 	}
 	BookRepository.save(book);
 
 	return "redirect:list";
-	}*/
+	}
 	
 	
 	
+	@GetMapping("delete/{id}")
+	public String deleteBook(@PathVariable("id") long id, Model model) {
+	// long id2 = 100L;
+	Book book = BookRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalidprovider Id:" + id));
+	//System.out.println("suite du programme...")
+	BookRepository.delete(book);
+	/*
+	* model.addAttribute("providers", providerRepository.findAll()); return
+	* "provider/listProviders";
+	*/
+	return "redirect:../list";
+	}
 	
 	
 	

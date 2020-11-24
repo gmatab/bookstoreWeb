@@ -6,11 +6,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 @Entity
 public class Book {
 @Id
  @GeneratedValue(strategy = GenerationType.AUTO)
- private int id;
+ private long id;
  @NotBlank(message = "title is mandatory")
  @Column(name = "title")
  private String title;
@@ -19,7 +20,7 @@ public class Book {
  @Column(name = "author")
  private String author;
 
- @NotBlank(message = "price is mandatory")
+ @NotNull(message = "price is mandatory")
  @Column(name = "price")
  private double price;
  
@@ -27,7 +28,7 @@ public class Book {
  @Column(name = "releaseDate")
  private String releaseDate;
  
- public Book(int id, String title,
+ public Book(long id, String title,
 		 String author,
 		 double price,
 		 String releaseDate,
@@ -41,11 +42,11 @@ public class Book {
 	this.cover = cover;
 }
 
-public int getId() {
+public long getId() {
 	return id;
 }
 
-public void setId(int id) {
+public void setId(long id) {
 	this.id = id;
 }
 
