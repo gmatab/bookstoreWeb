@@ -75,8 +75,21 @@ public class BookController {
 	return "redirect:../list";
 	}
 	
-	
-	
+	@GetMapping("edit/{id}")
+	public String showBookFormToUpdate(@PathVariable("id") long id, Model model) {
+		Book book = BookRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("InvalidBook Id:" + id));
+		model.addAttribute("book", book);
+		return "book/updateBook";
+	}
+
+	@PostMapping("update")
+	public String updateBook(@Valid Book book, BindingResult result, Model model) {
+		if (result.hasErrors()) {
+			return "book/updateBook";
+		}
+		BookRepository.save(book);
+		return "redirect:list";
+	}
 	
 	
 	

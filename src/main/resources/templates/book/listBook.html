@@ -152,7 +152,7 @@ $(document).ready(function(){
            <div th:switch="${book}" class="container my-5">
 
 <div class="col-md-10">
- <h2 th:case="null">No Providers yet!</h2>
+ <h2 th:case="null">No Books yet!</h2>
  <div th:case="*">
  
             <table class="table table-striped table-hover table-bordered">
@@ -177,7 +177,7 @@ $(document).ready(function(){
 						 <td th:text="${b.cover}"></td>
 						  <td>
                                 <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-                                <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                <a th:href="@{/book/edit/{id}(id=${b.id})}" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                                 <a th:href="@{/book/delete/{id}(id=${b.id})}"  class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                             </td>
 						 <!--<td><a
