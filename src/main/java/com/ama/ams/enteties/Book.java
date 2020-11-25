@@ -1,13 +1,22 @@
 package com.ama.ams.enteties;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import com.ama.ams.enteties.Commande;
 @Entity
+@Table(name = "book")
 public class Book {
 @Id
  @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,8 +36,19 @@ public class Book {
  @NotBlank(message = "release date is mandatory")
  @Column(name = "releaseDate")
  private String releaseDate;
+ @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY)
+	Set<Commande> commandes = new HashSet<>();
+
  
- public Book(long id, String title,
+ public Set<Commande> getCommandes() {
+	return commandes;
+}
+
+public void setCommandes(Set<Commande> commandes) {
+	this.commandes = commandes;
+}
+
+public Book(long id, String title,
 		 String author,
 		 double price,
 		 String releaseDate,
