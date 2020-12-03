@@ -11,7 +11,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping({ "/commandes" })
+@RequestMapping({ "/commande" })
 public class CommandeRestController {
 	private final CommandeRepository commandeRepository ;
 	private final BookRepository bookRepository ;
